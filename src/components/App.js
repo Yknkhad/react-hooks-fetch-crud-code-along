@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import ShoppingList from "./ShoppingList";
 import Header from "./Header";
+import classNames from "classnames";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   function handleDarkModeClick() {
-    setIsDarkMode((isDarkMode) => !isDarkMode);
+    setIsDarkMode((prevMode) => !prevMode);
   }
 
   return (
-    <div className={"App " + (isDarkMode ? "dark" : "light")}>
+    <div className={classNames("App", { dark: isDarkMode, light: !isDarkMode })}>
       <Header isDarkMode={isDarkMode} onDarkModeClick={handleDarkModeClick} />
-      <ShoppingList />
+      <ShoppingList key={isDarkMode ? "dark" : "light"} /> {/* Optional: Set key to force rerender */}
     </div>
   );
 }
